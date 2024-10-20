@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Header from "./Header";
 import Footer from "./Footer";
+import logo from "./KartScan-logo-removebg-preview.png"; // Import logo
 
 const FileUpload = () => {
   const [files, setFiles] = useState([]);
@@ -56,6 +57,11 @@ const FileUpload = () => {
       {/* Main Content */}
       <main className="flex-grow flex justify-center items-center py-12 px-4">
         <div className="bg-gray-800 p-6 md:p-8 rounded-lg shadow-lg w-full max-w-lg border border-gray-700">
+          {/* Logo Above File Upload Box */}
+          <div className="flex justify-center mb-0">
+            <img src={logo} alt="KartScan Logo" className="w-32 h-auto" /> {/* Adjust width as needed */}
+          </div>
+
           <div className="text-yellow-400 text-xl font-semibold mb-4 text-center">
             Upload Image Files
           </div>

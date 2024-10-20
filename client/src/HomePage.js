@@ -46,7 +46,7 @@ const HomePage = () => {
             {/* Object Detection */}
             <div className="relative">
               <img src={objectDetectionImage} alt="Object Detection" />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+              <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
                 <h2 className="text-yellow-400 text-2xl md:text-4xl font-bold text-center px-4">
                   Object Detection
                 </h2>
@@ -55,7 +55,7 @@ const HomePage = () => {
             {/* Text Recognition */}
             <div className="relative">
               <img src={textRecognitionImage} alt="Text Recognition" />
-              <div className="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+              <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
                 <h2 className="text-yellow-400 text-2xl md:text-4xl font-bold text-center px-4">
                   Text Recognition from Packaging
                 </h2>
@@ -64,7 +64,7 @@ const HomePage = () => {
             {/* Freshness Detection */}
             <div className="relative">
               <img src={freshnessDetectionImage} alt="Freshness Detection" />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+              <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
                 <h2 className="text-yellow-400 text-2xl md:text-4xl font-bold text-center px-4">
                   Detect Freshness of Fruits and Vegetables
                 </h2>

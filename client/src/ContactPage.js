@@ -20,9 +20,9 @@ const ContactPage = () => {
           <div className="text-gray-300 text-lg mb-4">
             <p className="mb-1">Members:</p>
             <ul className="list-disc list-inside">
-              <li>Ayush Gupta</li>
-              <li>Mohd. Ishan</li>
-              <li>Rachit Jain</li>
+              <li>Ayush Gupta - ayush.gupta.1108@gmail.com</li>
+              <li>Mohd. Ishan - mohd.ishankrj@gmail.com</li>
+              <li>Rachit Jain - rgjain04@gmail.com</li>
             </ul>
           </div>
           <h3 className="text-yellow-300 text-xl font-semibold text-center mb-2">
