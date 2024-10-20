@@ -11,13 +11,25 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:8000",
+      "https://ayush1108g.github.io",
+    ],
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
+
 require("dotenv").config();
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
   console.log(req.url);
   next();
-})
-
+});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -30,7 +42,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
 
 const { spawn } = require("child_process");
 
@@ -47,8 +58,7 @@ function getInference(inputData, callback) {
   });
 }
 
-
-app.post("/predict", upload.single("image"), async(req, res) => {
+app.post("/predict", upload.single("image"), async (req, res) => {
   const imagePath = req.file.path; // The path to the uploaded image
 
   if (!imagePath) {
@@ -57,7 +67,6 @@ app.post("/predict", upload.single("image"), async(req, res) => {
 
   console.log("Received image file:", imagePath);
 
-
   getInference(imagePath, (result) => {
     // Delete the uploaded image after inference
     fs.unlink(imagePath, (err) => {
@@ -65,15 +74,14 @@ app.post("/predict", upload.single("image"), async(req, res) => {
         console.error(`Error deleting imagd: ${err}`);
       }
     });
-    console.log('Result received');
+    console.log("Result received");
     // Send the result back to the client
     console.log(result);
     res.status(200).send({
-      result
+      result,
     });
   });
 });
-
 
 app.post("/predict1", upload.single("image"), async (req, res) => {
   console.log("Received image file:");
@@ -136,7 +144,6 @@ app.post("/predict1", upload.single("image"), async (req, res) => {
     res.status(500).json({ error: "An error occurred during OCR processing" });
   }
 });
- 
 
 app.listen(3000, () => {
   console.log("Node.js server running on port 3000");
