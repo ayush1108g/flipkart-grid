@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: node-python-server
+    env: node
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    plan: free
+    envVars:
+      - key: PYTHON_ENV
+        value: production
+      - key: PIP_NO_CACHE_DIR
+        value: "1"
+    region: oregon
+
+  - type: cron
+    name: install-python-libs
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: ""
+    schedule: "@every 1h"
+    region: oregon
