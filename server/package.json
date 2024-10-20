@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "node-python-server",
   "version": "1.0.0",
   "description": "backend for grid",
   "main": "server.js",
@@ -12,9 +12,11 @@
   "dependencies": {
     "axios": "^1.7.7",
     "child_process": "^1.0.2",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "keras-js": "^1.0.3",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "tesseract.js": "^5.1.1"
   }
 }
