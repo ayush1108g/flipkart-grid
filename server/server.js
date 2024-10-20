@@ -10,6 +10,12 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log("Request received");
+  console.log("Req", req.url);
+  next();
+});
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -315,6 +321,7 @@ app.post("/predict", upload.single("image"), async (req, res) => {
           console.error(`Execution error: ${error}`);
           return reject(stderr);
         }
+        5;
         resolve(stdout);
       });
     });
