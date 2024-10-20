@@ -283,6 +283,7 @@ const upload = multer({ storage: storage });
 //   }
 // });
 
+// all run at once
 app.post("/predict", upload.single("image"), async (req, res) => {
   console.log("Received image file:");
   const imagePath = req.file.path; // The path to the uploaded image
@@ -394,6 +395,10 @@ app.post("/predict", upload.single("image"), async (req, res) => {
     });
     res.status(500).json({ error: "An error occurred during processing" });
   }
+});
+
+app.get("/", (req, res) => {
+  res.send("Node.js server running on port 3000");
 });
 
 app.listen(3000, () => {
