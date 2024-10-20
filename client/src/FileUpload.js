@@ -5,26 +5,34 @@ import Footer from "./Footer";
 
 const FileUpload = () => {
   const [files, setFiles] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controls modal visibility
+
+  // Mock data for table fields
+  const mockFileData = (file) => ({
+    itemName: file.name.split(".")[0], // Mock item name from file name
+    quantity: Math.floor(Math.random() * 10) + 1, // Random quantity between 1 and 10
+    manufacturingDate: "2024-01-01", // Mock manufacturing date
+    expiryDate: "2025-01-01", // Mock expiry date
+    freshness: Math.floor(Math.random() * 100) + "%", // Random freshness percentage
+    otherInfo: "Additional details about the item." // Mock other information
+  });
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    // Handle accepted files (which are images)
     const updatedFiles = acceptedFiles.map((file) =>
       Object.assign(file, {
         preview: URL.createObjectURL(file),
-        progress: 100, // Assume the upload is successful, no actual uploading here
+        progress: 100, // Assume the upload is successful
+        data: mockFileData(file) // Add mock data for table fields
       })
     );
 
-    // Add only accepted image files to the state
     setFiles((prevFiles) => [...prevFiles, ...updatedFiles]);
 
-    // Optionally handle rejected files here
     if (rejectedFiles.length > 0) {
       alert("Only image files are allowed.");
     }
   }, []);
 
-  // Restrict to image files only
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
@@ -33,8 +41,12 @@ const FileUpload = () => {
       "image/gif": [],
       "image/jpg": [],
     },
-    multiple: true, // Allows multiple files
+    multiple: true,
   });
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen); // Toggle modal visibility
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 via-black to-gray-900 flex flex-col">
@@ -95,8 +107,67 @@ const FileUpload = () => {
               ))
             )}
           </div>
+
+          {/* Toggle Button for Pop-Up */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={toggleModal}
+              className="bg-yellow-400 text-black font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-yellow-500 transition-all"
+            >
+              {isModalOpen ? "Hide Results" : "Show Results"}
+            </button>
+          </div>
         </div>
       </main>
+
+      {/* Results Pop-Up Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-4xl border border-gray-700">
+            <h2 className="text-yellow-400 text-xl font-bold text-center mb-4">
+              Uploaded File Results
+            </h2>
+
+            {/* Scrollable Table for displaying file data */}
+            <div className="overflow-x-auto overflow-y-auto max-h-96">
+              <table className="min-w-full table-auto bg-gray-800 text-white">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 text-yellow-400">Item Name</th>
+                    <th className="px-4 py-2 text-yellow-400">Quantity</th>
+                    <th className="px-4 py-2 text-yellow-400">Manufacturing Date</th>
+                    <th className="px-4 py-2 text-yellow-400">Expiry Date</th>
+                    <th className="px-4 py-2 text-yellow-400">Freshness</th>
+                    <th className="px-4 py-2 text-yellow-400">Other Information</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {files.map((file, index) => (
+                    <tr key={index} className="border-t border-gray-700">
+                      <td className="px-4 py-2 text-center">{file.data.itemName || "-"}</td>
+                      <td className="px-4 py-2 text-center">{file.data.quantity || "-"}</td>
+                      <td className="px-4 py-2 text-center">{file.data.manufacturingDate || "-"}</td>
+                      <td className="px-4 py-2 text-center">{file.data.expiryDate || "-"}</td>
+                      <td className="px-4 py-2 text-center">{file.data.freshness || "-"}</td>
+                      <td className="px-4 py-2 text-center">{file.data.otherInfo || "-"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Close Button */}
+            <div className="text-center mt-6">
+              <button
+                onClick={toggleModal}
+                className="bg-yellow-400 text-black font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-yellow-500 transition-all"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <Footer />
