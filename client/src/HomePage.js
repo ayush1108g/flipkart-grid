@@ -55,7 +55,7 @@ const HomePage = () => {
             {/* Text Recognition */}
             <div className="relative">
               <img src={textRecognitionImage} alt="Text Recognition" />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+              <div className="absolute inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                 <h2 className="text-yellow-400 text-2xl md:text-4xl font-bold text-center px-4">
                   Text Recognition from Packaging
                 </h2>

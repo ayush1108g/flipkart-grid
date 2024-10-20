@@ -12,15 +12,15 @@ const Header = () => {
         </Link>
       </div>
       <nav className="hidden md:flex space-x-6">
+        <Link to="/" className="text-white hover:text-yellow-400">
+          Home
+        </Link>
         <Link to="/upload" className="text-white hover:text-yellow-400">
           Upload
         </Link>
-        <a href="#" className="text-white hover:text-yellow-400">
-          About
-        </a>
-        <a href="#" className="text-white hover:text-yellow-400">
+        <Link to="/contact" className="text-white hover:text-yellow-400">
           Contact
-        </a>
+        </Link>
       </nav>
     </header>
   );
