@@ -8,7 +8,16 @@ import tensorflow_hub as hub
 import tf_keras
 import os
 
+
+if __name__ == "__main__":
+    # Get image path from command line argument
+    image_path = sys.argv[1]
+
+
 # Load the model
+
+
+
 model_path = os.path.join(os.path.dirname(__file__), 'model4.h5') 
 model4 = tf_keras.models.load_model(model_path, custom_objects={'KerasLayer': hub.KerasLayer})
 
@@ -54,20 +63,17 @@ def Create_data_batches(x, y=None, batch_size=32, val_data=False, test_data=Fals
 def get_predicted_label(prediction_probs):
     return unique_labels[np.argmax(prediction_probs)]
 
-if __name__ == "__main__":
-    # Get image path from command line argument
-    image_path = sys.argv[1]
     
-    # Create test data
-    filenames = [image_path]
-    filenames = np.array(filenames)
-    Test_data = Create_data_batches(filenames, test_data=True)
-    
-    # Perform prediction
-    pred = model4.predict(Test_data)
-    
-    # Get label
-    pred_label = get_predicted_label(pred)
-    
-    # Output the predicted label
-    print(pred_label)
+# Create test data
+filenames = [image_path]
+filenames = np.array(filenames)
+Test_data = Create_data_batches(filenames, test_data=True)
+
+# Perform prediction
+pred = model4.predict(Test_data)
+
+# Get label
+pred_label = get_predicted_label(pred)
+
+# Output the predicted label
+print(pred_label)
